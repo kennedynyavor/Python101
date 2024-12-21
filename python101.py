@@ -26,7 +26,6 @@ df['yyyymm'] =[x.year*100+x.month for x in df['inception_month'] ]
 df['payment_date'] = pd.to_datetime(df['payment_date'])
 df['transaction_date'] = pd.to_datetime(df['transaction_date'])
 
-
 # Remove columns
 df.drop(['inflation','acceptance_date','payment_date','transaction_date'],inplace=True,axis = 1)
 
@@ -47,4 +46,15 @@ df1 = pd.merge(
     left_on='product',
     right_on='product_code')
 
+# MAkes other changes
+print(df1.dtypes)
 
+##
+##
+df2 = (
+    df1
+    .query("ape > 100000")
+)
+
+print(df2.head())
+print(df2.shape)
