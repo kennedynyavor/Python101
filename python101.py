@@ -34,7 +34,17 @@ df.drop(['inflation','acceptance_date','payment_date','transaction_date'],inplac
 print(df.dtypes)
 
 # Import excel files
-product = pd.read_excel(r"C:\Users\kknya\Documents\z_data\data_prep\dim_files\product_details.xlsx")
+product = (pd.read_excel(r"C:\Users\kknya\Documents\z_data\data_prep\dim_files\product_details.xlsx")
+           .drop(['sdr_group','never_lapsed'],axis = 1)
+           )
+
 print(product.head())
+
+# Merge 
+df1 = pd.merge(
+    df.drop(['product_name'],axis=1),
+    product,how='left',
+    left_on='product',
+    right_on='product_code')
 
 
